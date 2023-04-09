@@ -1,0 +1,2414 @@
+import tkinter
+from tkinter import *
+import random 
+
+
+
+#QUESTION AND QUESTION CHOICE FOR GK QUIZ STARTS HERE
+
+       
+QUESTION1 = [
+    "WHO IS THE FIRST PRIME MINISTER OF INDIA",
+    "CURRENT RAILWAY MINISTER OF INDIA IS",
+    "WHICH GOD IS ALSO KNOWN AS GAURI NANDAN",
+    "WHAT DOES NOT GROW ON TREE ACCORDING TO A POPULAR HINDI SAYING",
+    "WHICH CITY IS KNOWN AS PINK CITY IN INDIA",
+    "WHO WROTE INDIA'S NATIONAL ANTHEM",
+    "HOW MANY RELIGIONS ARE THERE IN INDIA ",
+    "HOW MANY STATES ARE THERE IN INDIA",
+    "WHERE in   INDIA GATE LOCATED",
+    "WHICH OF THE FOLLOWING IS NOT A STATE OF INDIA",
+    "WHICH ONE IS THE SMALLEST OCEAN IN THE WORLD",
+    "WHICH COUNTRY GIFTED THE STATUE OF LIBERTY TO USA IN 1886",
+    "DEAD SEA IS LOCATED BETWEEN WHICH TWO COUNTRIES ",
+    "IN WHICH OCEAN BERMUDA TRIANGLE REGION IS LOCATED",
+    "WHICH COUNTRY IS KNOWN AS THE PLAYGROUND OF EUROPE",
+    "WHICH COUNTRY IS ALSO KNOWN AS THE LAND OF RISING SUN",
+    "WHICH COUNTRY IS KNOWN AS THE LAND OF THUNDERBOLTS",
+    "WHICH CONTINENT HAS THE HIGHEST NUMBER OF COUNTRIES",
+    "IN WHICH COUNTRY,WHITE ELEPHANT IS FOUND",
+    "TOTAL NUMBER OF OCEANS IN THE WORLD IS ",
+    "WHICH COUNTRY IS ALSO KNOWN AS THE LAND OF THOUSAND LAKES",
+    "WHICH PLATEAU IS KNOWN AS THE ROOF OF THE WORLD",
+    "THE WORLD'S LONGEST STRAIGHT ROAD WITHOUT ANY CORNERS IS LOCATED IN ",
+    "WHICH ONE IS THE BIGGEST ISLAND IN THE WORLD",
+    "IN WHICH YEAR HONG KONG BECAME A PART OF CHINA AFTER BRITISH RULE",
+    "WHICH ONE IS THE WORLD'S HIGHEST-ALTITUDE CIVILIAN AIRPOT",
+    "WHICH RIVER IS FLOWING THROUGH GRAND CANYON IN ARIZONA,USA",
+    "WHICH ONE IS THE LARGEST TROPICAL RAIN FOREST IN THE WORLD",
+    "HOW MANY COUNTRIES WERE PARTICIPATED AS FOUNDING MEMBER OF UNITED NATION",
+    "WHICH ONE IS THE LONGEST CONTINENTAL MOUNTAIN RANGE IN THE WORLD",
+    
+    
+]
+
+OPTION1 = [
+    ["LAL BAHADUR SHASHTRI","NARENDRA MODI","JAWALAL NEHRU","MANMOHAN SINGH"],
+    ["MAMTA BANARJEE","RAM VILASH","ASHWINI VAISHNAW","PIYUSH GOYAL"],
+    ["AGNI","INDRA","HANUMAN","GANESHA"],
+    ["MONEY","FLOWERS","LEAVES","FRUITS"],
+    ["BANGLORE","MAYSORE","JAIPUR","KOCHI"],
+    ["RABINDRANATH TAGORE","LAL BAHADUR SHASTRI","CHETAN BHAGAT","RK NARAYAN"],
+    ["6","7","8","9"],
+    ["28","29","31","32"],
+    ["AGRA","PUNJAB","MUMBAI","NEW DELHI"],
+    ["VRINDACHAL","GOA","JHARKHAND","CHATTISGARH"],
+    ["INDIAN", "PACIFIC","ATLANTIC","ARCTIC"],
+    ["FRANCE","CANADA","BRAZIL","ENGLAND"],
+    ["JORDAN AND SUDAN","JORDAN AND ISRAEL","TURKEY AND UAE","UAE AND EGYPT"],
+    ["ATLANTIC","INDIAN","PACIFIC","ARCTIC"],
+    ["AUSTRIA","HOLLAND","SWITZERLAND","ITALY"],
+    ["JAPAN","NEW ZEALAND","FIJI","CHINA"],
+    ["CHINA","BHUTAN","MONGOLIA","THAILAND"],
+    ["ASIA","EUROPE","NORTH AMERICA","AFRICA"],
+    ["INDIA","SRI LANKA","THAILAND","MALAYSIA"],
+    ["3","5","7","12"],
+    ["ICELAND","NORWAY","FINLAND","SWITZERLAND"],
+    ["ANDES","HIMALAYA","KARAKORAM","PAMIR"],
+    ["USA","AUSTRALIA","SAUDI ARABIA","CHINA"],
+    ["BORNEO","FINLAND","SUMATRA","GREENLAND"],
+    ["1982","1989","1995","1997"],
+    ["DAOCHENG YADING AIRPOT,CHINA","KUSHOK BAKULA RIMPOCHHE AIRPORT,LRH","QAMDO BAMDA AIRPOT,CHINA","NONE OF THE ABOVE"],
+    ["MISSOURI RIVER","COLORADO RIVER","MISSISSIPPI RIVER","YUKON RIVER"],
+    ["AMAZON","BOSAWAS","SOUTHEAST ASIAN RAIN FOREST","DAINTREE RAIN FOREST"],
+    ["45","50","51","75"],
+    ["HIMALAYA","ANDES","ROCKY MOUNTAINS","URAL MOUNTAINS"],
+    
+]
+
+
+answer = [2,2,3,0,2,0,0,0,3,0,3,0,1,0,2,0,1,3,2,1,2,3,2,3,3,0,1,0,2,1]
+user_list = []
+
+indexes = []
+def index1():
+    global indexes
+    while(len(indexes) < 10):
+        x = random.randint(0,29)
+        if x in indexes:
+            continue
+        else:
+            indexes.append(x)
+            
+index1()
+    
+    
+def showresult(score):
+    lblquestion1.destroy()
+    r1.destroy()
+    r2.destroy()
+    r3.destroy()
+    r4.destroy()
+    btnwait.destroy()
+    
+    
+    labelresultimage.pack()
+    labelresulttext.pack()
+    
+    if score >= 40:
+        img = PhotoImage(file="win1.png")
+        labelresultimage.configure(image=img)
+        labelresultimage.image = img
+        labelresulttext.configure(text="CONGRATS,YOU WON THE QUIZ !!")
+    elif(score >= 30 and score < 40):
+        img = PhotoImage(file="good.png")
+        labelresultimage.configure(image=img)
+        labelresultimage.image = img
+        labelresulttext.configure(text="GOOD JOB  !!")
+    elif(score >= 20 and score < 30):
+        img = PhotoImage(file="good3.png")
+        labelresultimage.configure(image=img)
+        labelresultimage.image = img
+        labelresulttext.configure(text="YOU DID WELL,BUT CAN DO BETTER  !!")
+    elif(score >= 10 and score < 20):
+        img = PhotoImage(file="good2.png")
+        labelresultimage.configure(image=img)
+        labelresultimage.image = img
+        labelresulttext.configure(text="KEEP TRYING YOU WILL DO BETTER ONE DAY !!")
+    else:
+        img = PhotoImage(file="lose.png")
+        labelresultimage.configure(image=img)
+        labelresultimage.image = img
+        labelresulttext.configure(text="YOU SHOULD WORK HARD ")
+    
+    
+    
+
+
+
+def calc():
+    global indexes,user_list,answer
+    x = 0
+    score = 0
+    for i in indexes:
+        if user_list[x] == answer[i]:
+            score = score + 5
+        x += 1
+    print(score) 
+    showresult(score)
+
+    
+     
+ques = 1
+def selected():
+    global radiovar,user_list
+    global lblquestion2,r5,r6,r7,r8
+    global ques 
+    x = radiovar.get()
+    user_list.append(x)
+    radiovar.set(-1)
+    if ques < 10:
+        lblquestion1.config(text= QUESTION1[indexes[ques]])
+        r1["text"] = OPTION1[indexes[ques]][0]
+        r2["text"] = OPTION1[indexes[ques]][1]
+        r3["text"] = OPTION1[indexes[ques]][2]
+        r4["text"] = OPTION1[indexes[ques]][3]
+        ques += 1
+    else:
+        calc()
+         
+    
+    
+
+    
+def endclicked():
+    lblquestion1.destroy()
+    r1.destroy()
+    r2.destroy()
+    r3.destroy()
+    r4.destroy()
+    btnwait.destroy()
+    labelresultimage.destroy()
+    labelresulttext.destroy()
+    
+    
+    
+    labelrestartimage.pack()
+    labelendtext.pack()
+    
+    
+
+    
+
+
+#QUESTION AND QUESTION CHOICE FOR PYTHON QUIZ STARTS HERE
+
+QUESTION2 = [
+    "WHO DEVELOPED PYTHON PROGRAMMING LANGUAGE ",
+    "WHICH TYPE OF PROGRAMMING DOES PYTHON SUPPORT",
+    "IS PYTHON CASE SENSITIVE WHEN DEALING WITH IDENTIFIERS",
+    "WHICH OF THE FOLLOWING IS THE CORRECT EXTENSION OF THE PYTHON FILE",
+    "ALL KEYWORDS IN PYTHON ARE IN",
+    "WHAT WILL BE THE VALUE OF THE FOLLOWING EXPRESSION: 4 + 3% 5",
+    "WHICH OF THE FOLLOWING IS USED TO DEFINE A BLOCK OF CODE IN PYTHON LANGUAGE",
+    "WHICH KEYWORD IS USED FOR FUNCTION IN PYTHON LANGUAGE",
+    "WHICH OF THE FOLLOWING CHARACTER IS USED TO GIVE SINGLE-LINE COMMENTS IN PYTHON",
+    "WHICH OF THE FOLLOWING FUNCTIONS CAN HELP US TO FIND THE VERSION OF PYTHON THAT WE ARE CURRENTLY WORKING ON",
+    "PYTHON SUPPORTS THE CREATION OF ANONYMOUS FUNCTIONS AT RUNTIME,USING A CONSTRUCT CALLED __",
+    "WHAT WILL BE THE OUTPUT OF THE FOLLOWING PYTHON CODE SNIPPET IF X=1",
+    "WHAT DOES PIP STAND FOR PYTHON ",
+    "WHICH OF THE FOLLOWING IS THE TRUNCATION DIVISOR OPERATOR IN PYTHON",
+    "WHICH OF THE FOLLOWING FUNCTIONS IS A BUILT-IN FUNCTION IN PYTHON",
+    "WHICH OF THE FOLLOWING IS NOT A CORE DATA TYPE IN PYTHON PROGRAMMING",
+    "WHICH OF THE FOLLOWING IS NOT A KEYWORD IN PYTHON PROGRAMMING",
+    "WHICH MODULE IN THE PYTHON STANDARD LIBRARY PARSES OPTIONS RECEIVED FROM THE COMMAND LINE",
+    "WHAT ARITHMETIC OPERATORS CANNOT BE USED WITH STRINGS IN PYTHON",
+    "WHICH OF THE FOLLOWING STATEMENT IS USED TO CREATE AN EMPTY SET IN PYTHON ",
+    "TO ADD A NEW ELEMENT TO A LIST WE USE WHICH PYTHON COMMAND",
+    "WHICH OF THE FOLLOWING IS A PYTHON TUPLE",
+    "WHAT IS OUTPUT OF print(math.power(3,2)) ",
+    "WHAT IS THE MAXIMUM POSSIBLE LENGTH OF AN IDENTIFIER IN PYTHON",
+    "IN WHICH YEAR WAS THE PYTHON LANGUAGE DEVELOPED",
+    "IN WHICH YEAR WAS THE PYTHON 3.0 VERSION DEVELOPED",
+    "WHAT IS THE METHOD INSIDE THE CLASS IN PYTHON LANGUAGE",
+    "WHICH OF THE FOLLOWING IS NOT A KEYWORD IN PYTHON LANGUAGE",
+    "WHICH OF THE FOLLOWING OPERATORS IS THE CORRECT OPTION FOR POWER(ab)",
+    "WHICH OF THE FOLLOWING HAS THE HIGHEST PRECEDENCE IN THE EXPRESSION",
+    
+    
+]
+
+OPTION2 = [
+    ["WICK VAN ROSSUM","RASMUS LERDORF","GUIDO VAN ROSSUM","NIENE STOM"],
+    ["OBJECT-ORIENTED PROGRAMMING","STRUCTURED PROGRAMMING","FUNCTIONAL PROGRAMMING","ALL OF US MENTIONED"],
+    ["NO","YES","MACHINE DEPENDENT","NONE"],
+    [".PYTHON",".P1",".PY",".P"],
+    ["CAPITALIZED","LOWERCASE","UPPERCASE","NONE OF THE MENTIONED"],
+    ["7","2","4","1"],
+    ["INDENTATION","KEY","BRACKETS","ALL OF THE MENTIONED"],
+    ["FUNCTION","def","fun","DEFINE"],
+    ["//","#","!","/*"],
+    ["SYS.VERSION(1)","SYS.VERSION(0)","SYS.VERSION()","SYS.VERSION"],
+    ["pi", "anonymous","lambda","none of the mentioned"],
+    ["4","2","1","8"],
+    ["pip installs python","PIP INSTALLS PACKAGES","PREFERRED INSTALLER PROGRAM","ALL OF THE MENTIONED"],
+    ["|","//","/","%"],
+    ["FACTORIAL()","PRINT()","seed()","sqrt()"],
+    ["tuples","LISTS","CLASS","DICTIONARY"],
+    ["pass","eval","assert","nonlocal"],
+    ["getarg","getopt","main","os"],
+    ["*","-","+","ALL OF THE ABOVE MENTIONED"],
+    ["()","[]","{}","set()"],
+    ["list1.addEnd(5)","list.addLast(5)","list1.append(5)","list1.add(5)"],
+    ["{1,2,3}","{}","[1,2,3]","1,2,3"],
+    ["9.0","none","9","none of the above mentioned "],
+    ["79 CHARACTER","31 CHARACTERS","63 CHARACTERS","NONE OF THE MENTIONED"],
+    ["1995","1972","1981","1989"],
+    ["2008","2000","2010","2005"],
+    ["OBJECT","FUNCTION","ATTRIBUTE","ARGUMENT"],
+    ["val","raise","try","with"],
+    ["a^b","a**b","a^^b","a^*b"],
+    ["DIVISION","SUBTRACTION","POWER","PARENTHESES"],
+    
+]
+
+
+answer2 = [2,3,1,2,3,0,0,1,1,3,2,0,2,1,1,2,1,1,1,3,2,3,0,3,3,0,1,0,0,3]
+user_list2 = []
+
+indexes2 = []
+def index2():
+    global indexes2
+    while(len(indexes2) < 10):
+        x = random.randint(0,29)
+        if x in indexes2:
+            continue
+        else:
+            indexes2.append(x)
+            
+index2()
+    
+    
+def showresult2(score2):
+    lblquestion2.destroy()
+    r5.destroy()
+    r6.destroy()
+    r7.destroy()
+    r8.destroy()
+    btnwait2.destroy()
+    
+    labelresultimage2.pack()
+    labelresulttext2.pack()
+    if score2 >= 40:
+        img = PhotoImage(file="win1.png")
+        labelresultimage2.configure(image=img)
+        labelresultimage2.image = img
+        labelresulttext2.configure(text="CONGRATS,YOU WON THE QUIZ !!")
+    elif(score2 >= 30 and score2 < 40):
+        img = PhotoImage(file="good.png")
+        labelresultimage2.configure(image=img)
+        labelresultimage2.image = img
+        labelresulttext2.configure(text="GOOD JOB  !!")
+    elif(score2 >= 20 and score2 < 30):
+        img = PhotoImage(file="good3.png")
+        labelresultimage2.configure(image=img)
+        labelresultimage2.image = img
+        labelresulttext2.configure(text="YOU DID WELL,BUT CAN DO BETTER  !!")
+    elif(score2 >= 10 and score2 < 20):
+        img = PhotoImage(file="good2.png")
+        labelresultimage2.configure(image=img)
+        labelresultimage2.image = img
+        labelresulttext2.configure(text="KEEP TRYING YOU WILL DO BETTER ONE DAY !!")
+    else:
+        img = PhotoImage(file="lose.png")
+        labelresultimage2.configure(image=img)
+        labelresultimage2.image = img
+        labelresulttext2.configure(text="YOU SHOULD WORK HARD ")
+    
+    
+    
+
+
+
+def calc2():
+    global indexes2,user_list2,answer2
+    x = 0
+    score2 = 0
+    for i in indexes2:
+        if user_list2[x] == answer2[i]:
+            score2 = score2 + 5
+        x += 1
+    print(score2) 
+    showresult2(score2)
+
+    
+     
+ques2 = 1
+def selectedpy():
+    global radiovar1,user_list2
+    global lblquestion2,r5,r6,r7,r8
+    global ques
+    x = radiovar1.get()
+    user_list2.append(x)
+    radiovar1.set(-1)
+    if ques < 10:
+        lblquestion2.config(text= QUESTION2[indexes2[ques]])
+        r5["text"] = OPTION2[indexes2[ques]][0]
+        r6["text"] = OPTION2[indexes2[ques]][1]
+        r7["text"] = OPTION2[indexes2[ques]][2]
+        r8["text"] = OPTION2[indexes2[ques]][3]
+        ques += 1
+    else:
+        calc2()
+         
+    
+    
+
+    
+def endclicked2():
+    lblquestion2.destroy()
+    r5.destroy()
+    r6.destroy()
+    r7.destroy()
+    r8.destroy()
+    btnwait2.destroy()
+    labelresultimage2.destroy()
+    labelresulttext2.destroy()
+    
+    
+    
+    labelrestartimage2.pack()
+    labelendtext2.pack()
+    
+    
+    
+
+    
+    
+#THE QUESTION ANSWER FOR PYTHON QUIZ ENDS HERE 
+
+#QUESTION AND QUESTION CHOICE FOR DBMS QUIZ STARTS HERE
+
+QUESTION3 = [
+    "WHO IS THE FIRST PRIME MINISTER OF INDIA",
+    "CURRENT RAILWAY MINISTER OF INDIA IS",
+    "WHICH GOD IS ALSO KNOWN AS GAURI NANDAN",
+    "WHAT DOES NOT GROW ON TREE ACCORDING TO A POPULAR HINDI SAYING",
+    "WHICH CITY IS KNOWN AS PINK CITY IN INDIA",
+    "WHO WROTE INDIA'S NATIONAL ANTHEM",
+    "HOW MANY RELIGIONS ARE THERE IN INDIA ",
+    "HOW MANY STATES ARE THERE IN INDIA",
+    "WHERE in   INDIA GATE LOCATED",
+    "WHICH OF THE FOLLOWING IS NOT A STATE OF INDIA",
+    "WHICH ONE IS THE SMALLEST OCEAN IN THE WORLD",
+    "WHICH COUNTRY GIFTED THE STATUE OF LIBERTY TO USA IN 1886",
+    "DEAD SEA IS LOCATED BETWEEN WHICH TWO COUNTRIES ",
+    "IN WHICH OCEAN BERMUDA TRIANGLE REGION IS LOCATED",
+    "WHICH COUNTRY IS KNOWN AS THE PLAYGROUND OF EUROPE",
+    "WHICH COUNTRY IS ALSO KNOWN AS THE LAND OF RISING SUN",
+    "WHICH COUNTRY IS KNOWN AS THE LAND OF THUNDERBOLTS",
+    "WHICH CONTINENT HAS THE HIGHEST NUMBER OF COUNTRIES",
+    "IN WHICH COUNTRY,WHITE ELEPHANT IS FOUND",
+    "TOTAL NUMBER OF OCEANS IN THE WORLD IS ",
+    "WHICH COUNTRY IS ALSO KNOWN AS THE LAND OF THOUSAND LAKES",
+    "WHICH PLATEAU IS KNOWN AS THE ROOF OF THE WORLD",
+    "THE WORLD'S LONGEST STRAIGHT ROAD WITHOUT ANY CORNERS IS LOCATED IN ",
+    "WHICH ONE IS THE BIGGEST ISLAND IN THE WORLD",
+    "IN WHICH YEAR HONG KONG BECAME A PART OF CHINA AFTER BRITISH RULE",
+    "WHICH ONE IS THE WORLD'S HIGHEST-ALTITUDE CIVILIAN AIRPOT",
+    "WHICH RIVER IS FLOWING THROUGH GRAND CANYON IN ARIZONA,USA",
+    "WHICH ONE IS THE LARGEST TROPICAL RAIN FOREST IN THE WORLD",
+    "HOW MANY COUNTRIES WERE PARTICIPATED AS FOUNDING MEMBER OF UNITED NATION",
+    "WHICH ONE IS THE LONGEST CONTINENTAL MOUNTAIN RANGE IN THE WORLD",
+    
+    
+]
+
+OPTION3 = [
+    ["LAL BAHADUR SHASHTRI","NARENDRA MODI","JAWALAL NEHRU","MANMOHAN SINGH"],
+    ["MAMTA BANARJEE","RAM VILASH","ASHWINI VAISHNAW","PIYUSH GOYAL"],
+    ["AGNI","INDRA","HANUMAN","GANESHA"],
+    ["MONEY","FLOWERS","LEAVES","FRUITS"],
+    ["BANGLORE","MAYSORE","JAIPUR","KOCHI"],
+    ["RABINDRANATH TAGORE","LAL BAHADUR SHASTRI","CHETAN BHAGAT","RK NARAYAN"],
+    ["6","7","8","9"],
+    ["28","29","31","32"],
+    ["AGRA","PUNJAB","MUMBAI","NEW DELHI"],
+    ["VRINDACHAL","GOA","JHARKHAND","CHATTISGARH"],
+    ["INDIAN", "PACIFIC","ATLANTIC","ARCTIC"],
+    ["FRANCE","CANADA","BRAZIL","ENGLAND"],
+    ["JORDAN AND SUDAN","JORDAN AND ISRAEL","TURKEY AND UAE","UAE AND EGYPT"],
+    ["ATLANTIC","INDIAN","PACIFIC","ARCTIC"],
+    ["AUSTRIA","HOLLAND","SWITZERLAND","ITALY"],
+    ["JAPAN","NEW ZEALAND","FIJI","CHINA"],
+    ["CHINA","BHUTAN","MONGOLIA","THAILAND"],
+    ["ASIA","EUROPE","NORTH AMERICA","AFRICA"],
+    ["INDIA","SRI LANKA","THAILAND","MALAYSIA"],
+    ["3","5","7","12"],
+    ["ICELAND","NORWAY","FINLAND","SWITZERLAND"],
+    ["ANDES","HIMALAYA","KARAKORAM","PAMIR"],
+    ["USA","AUSTRALIA","SAUDI ARABIA","CHINA"],
+    ["BORNEO","FINLAND","SUMATRA","GREENLAND"],
+    ["1982","1989","1995","1997"],
+    ["DAOCHENG YADING AIRPOT,CHINA","KUSHOK BAKULA RIMPOCHHE AIRPORT,LRH","QAMDO BAMDA AIRPOT,CHINA","NONE OF THE ABOVE"],
+    ["MISSOURI RIVER","COLORADO RIVER","MISSISSIPPI RIVER","YUKON RIVER"],
+    ["AMAZON","BOSAWAS","SOUTHEAST ASIAN RAIN FOREST","DAINTREE RAIN FOREST"],
+    ["45","50","51","75"],
+    ["HIMALAYA","ANDES","ROCKY MOUNTAINS","URAL MOUNTAINS"],
+    
+]
+
+
+answer3 = [2,2,3,0,2,0,0,0,3,0,3,0,1,0,2,0,1,3,2,1,2,3,2,3,3,0,1,0,2,1]
+user_list3 = []
+
+indexes3 = []
+def index3():
+    global indexes3
+    while(len(indexes3) < 10):
+        x = random.randint(0,29)
+        if x in indexes3:
+            continue
+        else:
+            indexes3.append(x)
+            
+index3()
+    
+    
+def showresult3(score3):
+    lblquestion3.destroy()
+    r9.destroy()
+    r10.destroy()
+    r11.destroy()
+    r12.destroy()
+    btnwait3.destroy()
+    
+    labelresultimage3.pack()
+    labelresulttext3.pack()
+    if score3 >= 40:
+        img = PhotoImage(file="win1.png")
+        labelresultimage3.configure(image=img)
+        labelresultimage3.image = img
+        labelresulttext3.configure(text="CONGRATS,YOU WON THE QUIZ !!")
+    elif(score3 >= 30 and score3 < 40):
+        img = PhotoImage(file="good.png")
+        labelresultimage3.configure(image=img)
+        labelresultimage3.image = img
+        labelresulttext3.configure(text="GOOD JOB  !!")
+    elif(score3 >= 20 and score3 < 30):
+        img = PhotoImage(file="good3.png")
+        labelresultimage3.configure(image=img)
+        labelresultimage3.image = img
+        labelresulttext3.configure(text="YOU DID WELL,BUT CAN DO BETTER  !!")
+    elif(score3 >= 10 and score3 < 20):
+        img = PhotoImage(file="good2.png")
+        labelresultimage3.configure(image=img)
+        labelresultimage3.image = img
+        labelresulttext3.configure(text="KEEP TRYING YOU WILL DO BETTER ONE DAY !!")
+    else:
+        img = PhotoImage(file="lose.png")
+        labelresultimage3.configure(image=img)
+        labelresultimage3.image = img
+        labelresulttext3.configure(text="YOU SHOULD WORK HARD ")
+    
+    
+    
+
+
+
+def calc3():
+    global indexes3,user_list3,answer3
+    x = 0
+    score3 = 0
+    for i in indexes3:
+        if user_list3[x] == answer3[i]:
+            score3 = score3 + 5
+        x += 1
+    print(score3) 
+    showresult3(score3)
+
+    
+     
+ques = 1
+def selecteddbms():
+    global radiovar3,user_list3
+    global lblquestion3,r9,r10,r11,r12
+    global ques 
+    x = radiovar3.get()
+    user_list3.append(x)
+    radiovar3.set(-1)
+    if ques < 10:
+        lblquestion3.config(text= QUESTION3[indexes3[ques]])
+        r9["text"] = OPTION3[indexes3[ques]][0]
+        r10["text"] = OPTION3[indexes3[ques]][1]
+        r11["text"] = OPTION3[indexes3[ques]][2]
+        r12["text"] = OPTION3[indexes3[ques]][3]
+        ques += 1
+    else:
+        calc3()
+         
+    
+    
+
+    
+def endclicked3():
+    lblquestion3.destroy()
+    r9.destroy()
+    r10.destroy()
+    r11.destroy()
+    r12.destroy()
+    btnwait3.destroy()
+    labelresultimage3.destroy()
+    labelresulttext3.destroy()
+    
+    
+    
+    labelrestartimage3.pack()
+    labelendtext3.pack()
+    
+    
+    
+    
+#THE QUESTION ANSWER FOR DBMS QUIZ ENDS HERE 
+
+#QUESTION AND QUESTION CHOICE FOR DS QUIZ STARTS HERE
+
+
+QUESTION4 = [
+    "WHO IS THE FIRST PRIME MINISTER OF INDIA",
+    "CURRENT RAILWAY MINISTER OF INDIA IS",
+    "WHICH GOD IS ALSO KNOWN AS GAURI NANDAN",
+    "WHAT DOES NOT GROW ON TREE ACCORDING TO A POPULAR HINDI SAYING",
+    "WHICH CITY IS KNOWN AS PINK CITY IN INDIA",
+    "WHO WROTE INDIA'S NATIONAL ANTHEM",
+    "HOW MANY RELIGIONS ARE THERE IN INDIA ",
+    "HOW MANY STATES ARE THERE IN INDIA",
+    "WHERE in   INDIA GATE LOCATED",
+    "WHICH OF THE FOLLOWING IS NOT A STATE OF INDIA",
+    "WHICH ONE IS THE SMALLEST OCEAN IN THE WORLD",
+    "WHICH COUNTRY GIFTED THE STATUE OF LIBERTY TO USA IN 1886",
+    "DEAD SEA IS LOCATED BETWEEN WHICH TWO COUNTRIES ",
+    "IN WHICH OCEAN BERMUDA TRIANGLE REGION IS LOCATED",
+    "WHICH COUNTRY IS KNOWN AS THE PLAYGROUND OF EUROPE",
+    "WHICH COUNTRY IS ALSO KNOWN AS THE LAND OF RISING SUN",
+    "WHICH COUNTRY IS KNOWN AS THE LAND OF THUNDERBOLTS",
+    "WHICH CONTINENT HAS THE HIGHEST NUMBER OF COUNTRIES",
+    "IN WHICH COUNTRY,WHITE ELEPHANT IS FOUND",
+    "TOTAL NUMBER OF OCEANS IN THE WORLD IS ",
+    "WHICH COUNTRY IS ALSO KNOWN AS THE LAND OF THOUSAND LAKES",
+    "WHICH PLATEAU IS KNOWN AS THE ROOF OF THE WORLD",
+    "THE WORLD'S LONGEST STRAIGHT ROAD WITHOUT ANY CORNERS IS LOCATED IN ",
+    "WHICH ONE IS THE BIGGEST ISLAND IN THE WORLD",
+    "IN WHICH YEAR HONG KONG BECAME A PART OF CHINA AFTER BRITISH RULE",
+    "WHICH ONE IS THE WORLD'S HIGHEST-ALTITUDE CIVILIAN AIRPOT",
+    "WHICH RIVER IS FLOWING THROUGH GRAND CANYON IN ARIZONA,USA",
+    "WHICH ONE IS THE LARGEST TROPICAL RAIN FOREST IN THE WORLD",
+    "HOW MANY COUNTRIES WERE PARTICIPATED AS FOUNDING MEMBER OF UNITED NATION",
+    "WHICH ONE IS THE LONGEST CONTINENTAL MOUNTAIN RANGE IN THE WORLD",
+    
+    
+]
+
+OPTION4 = [
+    ["LAL BAHADUR SHASHTRI","NARENDRA MODI","JAWALAL NEHRU","MANMOHAN SINGH"],
+    ["MAMTA BANARJEE","RAM VILASH","ASHWINI VAISHNAW","PIYUSH GOYAL"],
+    ["AGNI","INDRA","HANUMAN","GANESHA"],
+    ["MONEY","FLOWERS","LEAVES","FRUITS"],
+    ["BANGLORE","MAYSORE","JAIPUR","KOCHI"],
+    ["RABINDRANATH TAGORE","LAL BAHADUR SHASTRI","CHETAN BHAGAT","RK NARAYAN"],
+    ["6","7","8","9"],
+    ["28","29","31","32"],
+    ["AGRA","PUNJAB","MUMBAI","NEW DELHI"],
+    ["VRINDACHAL","GOA","JHARKHAND","CHATTISGARH"],
+    ["INDIAN", "PACIFIC","ATLANTIC","ARCTIC"],
+    ["FRANCE","CANADA","BRAZIL","ENGLAND"],
+    ["JORDAN AND SUDAN","JORDAN AND ISRAEL","TURKEY AND UAE","UAE AND EGYPT"],
+    ["ATLANTIC","INDIAN","PACIFIC","ARCTIC"],
+    ["AUSTRIA","HOLLAND","SWITZERLAND","ITALY"],
+    ["JAPAN","NEW ZEALAND","FIJI","CHINA"],
+    ["CHINA","BHUTAN","MONGOLIA","THAILAND"],
+    ["ASIA","EUROPE","NORTH AMERICA","AFRICA"],
+    ["INDIA","SRI LANKA","THAILAND","MALAYSIA"],
+    ["3","5","7","12"],
+    ["ICELAND","NORWAY","FINLAND","SWITZERLAND"],
+    ["ANDES","HIMALAYA","KARAKORAM","PAMIR"],
+    ["USA","AUSTRALIA","SAUDI ARABIA","CHINA"],
+    ["BORNEO","FINLAND","SUMATRA","GREENLAND"],
+    ["1982","1989","1995","1997"],
+    ["DAOCHENG YADING AIRPOT,CHINA","KUSHOK BAKULA RIMPOCHHE AIRPORT,LRH","QAMDO BAMDA AIRPOT,CHINA","NONE OF THE ABOVE"],
+    ["MISSOURI RIVER","COLORADO RIVER","MISSISSIPPI RIVER","YUKON RIVER"],
+    ["AMAZON","BOSAWAS","SOUTHEAST ASIAN RAIN FOREST","DAINTREE RAIN FOREST"],
+    ["45","50","51","75"],
+    ["HIMALAYA","ANDES","ROCKY MOUNTAINS","URAL MOUNTAINS"],
+    
+]
+
+
+answer4 = [2,2,3,0,2,0,0,0,3,0,3,0,1,0,2,0,1,3,2,1,2,3,2,3,3,0,1,0,2,1]
+user_list4 = []
+
+indexes4 = []
+def index4():
+    global indexes4
+    while(len(indexes4) < 10):
+        x = random.randint(0,29)
+        if x in indexes4:
+            continue
+        else:
+            indexes4.append(x)
+            
+index4()
+    
+    
+def showresult4(score4):
+    lblquestion4.destroy()
+    r13.destroy()
+    r14.destroy()
+    r15.destroy()
+    r16.destroy()
+    btnwait4.destroy()
+    
+    labelresultimage4.pack()
+    labelresulttext4.pack()
+    if score4 >= 40:
+        img = PhotoImage(file="win1.png")
+        labelresultimage4.configure(image=img)
+        labelresultimage4.image = img
+        labelresulttext4.configure(text="CONGRATS,YOU WON THE QUIZ !!")
+    elif(score4 >= 30 and score4 < 40):
+        img = PhotoImage(file="good.png")
+        labelresultimage4.configure(image=img)
+        labelresultimage4.image = img
+        labelresulttext4.configure(text="GOOD JOB  !!")
+    elif(score4 >= 20 and score4 < 30):
+        img = PhotoImage(file="good3.png")
+        labelresultimage4.configure(image=img)
+        labelresultimage4.image = img
+        labelresulttext4.configure(text="YOU DID WELL,BUT CAN DO BETTER  !!")
+    elif(score4 >= 10 and score4 < 20):
+        img = PhotoImage(file="good2.png")
+        labelresultimage4.configure(image=img)
+        labelresultimage4.image = img
+        labelresulttext4.configure(text="KEEP TRYING YOU WILL DO BETTER ONE DAY !!")
+    else:
+        img = PhotoImage(file="lose.png")
+        labelresultimage4.configure(image=img)
+        labelresultimage4.image = img
+        labelresulttext4.configure(text="YOU SHOULD WORK HARD ")
+    
+    
+    
+
+
+
+def calc4():
+    global indexes4,user_list4,answer4
+    x = 0
+    score4 = 0
+    for i in indexes4:
+        if user_list4[x] == answer4[i]:
+            score4 = score4 + 5
+        x += 1
+    print(score4) 
+    showresult4(score4)
+
+    
+     
+ques = 1
+def selectedds():
+    global radiovar4,user_list4
+    global lblquestion4,r13,r14,r15,r16
+    global ques 
+    x = radiovar4.get()
+    user_list4.append(x)
+    radiovar4.set(-1)
+    if ques < 10:
+        lblquestion4.config(text= QUESTION4[indexes4[ques]])
+        r13["text"] = OPTION4[indexes4[ques]][0]
+        r14["text"] = OPTION4[indexes4[ques]][1]
+        r15["text"] = OPTION4[indexes4[ques]][2]
+        r16["text"] = OPTION4[indexes4[ques]][3]
+        ques += 1
+    else:
+        calc4()
+         
+    
+    
+
+    
+def endclicked4():
+    lblquestion4.destroy()
+    r13.destroy()
+    r14.destroy()
+    r15.destroy()
+    r16.destroy()
+    btnwait4.destroy()
+    labelresultimage4.destroy()
+    labelresulttext4.destroy()
+    
+    
+    
+    labelrestartimage4.pack()
+    labelendtext4.pack()
+    
+#THE QUESTION ANSWER FOR DS  QUIZ ENDS HERE 
+
+#QUESTION AND QUESTION CHOICE FOR SPORTS  QUIZ STARTS HERE
+
+QUESTION5 = [
+    "WHO IS THE FIRST PRIME MINISTER OF INDIA",
+    "CURRENT RAILWAY MINISTER OF INDIA IS",
+    "WHICH GOD IS ALSO KNOWN AS GAURI NANDAN",
+    "WHAT DOES NOT GROW ON TREE ACCORDING TO A POPULAR HINDI SAYING",
+    "WHICH CITY IS KNOWN AS PINK CITY IN INDIA",
+    "WHO WROTE INDIA'S NATIONAL ANTHEM",
+    "HOW MANY RELIGIONS ARE THERE IN INDIA ",
+    "HOW MANY STATES ARE THERE IN INDIA",
+    "WHERE in   INDIA GATE LOCATED",
+    "WHICH OF THE FOLLOWING IS NOT A STATE OF INDIA",
+    "WHICH ONE IS THE SMALLEST OCEAN IN THE WORLD",
+    "WHICH COUNTRY GIFTED THE STATUE OF LIBERTY TO USA IN 1886",
+    "DEAD SEA IS LOCATED BETWEEN WHICH TWO COUNTRIES ",
+    "IN WHICH OCEAN BERMUDA TRIANGLE REGION IS LOCATED",
+    "WHICH COUNTRY IS KNOWN AS THE PLAYGROUND OF EUROPE",
+    "WHICH COUNTRY IS ALSO KNOWN AS THE LAND OF RISING SUN",
+    "WHICH COUNTRY IS KNOWN AS THE LAND OF THUNDERBOLTS",
+    "WHICH CONTINENT HAS THE HIGHEST NUMBER OF COUNTRIES",
+    "IN WHICH COUNTRY,WHITE ELEPHANT IS FOUND",
+    "TOTAL NUMBER OF OCEANS IN THE WORLD IS ",
+    "WHICH COUNTRY IS ALSO KNOWN AS THE LAND OF THOUSAND LAKES",
+    "WHICH PLATEAU IS KNOWN AS THE ROOF OF THE WORLD",
+    "THE WORLD'S LONGEST STRAIGHT ROAD WITHOUT ANY CORNERS IS LOCATED IN ",
+    "WHICH ONE IS THE BIGGEST ISLAND IN THE WORLD",
+    "IN WHICH YEAR HONG KONG BECAME A PART OF CHINA AFTER BRITISH RULE",
+    "WHICH ONE IS THE WORLD'S HIGHEST-ALTITUDE CIVILIAN AIRPOT",
+    "WHICH RIVER IS FLOWING THROUGH GRAND CANYON IN ARIZONA,USA",
+    "WHICH ONE IS THE LARGEST TROPICAL RAIN FOREST IN THE WORLD",
+    "HOW MANY COUNTRIES WERE PARTICIPATED AS FOUNDING MEMBER OF UNITED NATION",
+    "WHICH ONE IS THE LONGEST CONTINENTAL MOUNTAIN RANGE IN THE WORLD",
+    
+    
+]
+
+OPTION5 = [
+    ["LAL BAHADUR SHASHTRI","NARENDRA MODI","JAWALAL NEHRU","MANMOHAN SINGH"],
+    ["MAMTA BANARJEE","RAM VILASH","ASHWINI VAISHNAW","PIYUSH GOYAL"],
+    ["AGNI","INDRA","HANUMAN","GANESHA"],
+    ["MONEY","FLOWERS","LEAVES","FRUITS"],
+    ["BANGLORE","MAYSORE","JAIPUR","KOCHI"],
+    ["RABINDRANATH TAGORE","LAL BAHADUR SHASTRI","CHETAN BHAGAT","RK NARAYAN"],
+    ["6","7","8","9"],
+    ["28","29","31","32"],
+    ["AGRA","PUNJAB","MUMBAI","NEW DELHI"],
+    ["VRINDACHAL","GOA","JHARKHAND","CHATTISGARH"],
+    ["INDIAN", "PACIFIC","ATLANTIC","ARCTIC"],
+    ["FRANCE","CANADA","BRAZIL","ENGLAND"],
+    ["JORDAN AND SUDAN","JORDAN AND ISRAEL","TURKEY AND UAE","UAE AND EGYPT"],
+    ["ATLANTIC","INDIAN","PACIFIC","ARCTIC"],
+    ["AUSTRIA","HOLLAND","SWITZERLAND","ITALY"],
+    ["JAPAN","NEW ZEALAND","FIJI","CHINA"],
+    ["CHINA","BHUTAN","MONGOLIA","THAILAND"],
+    ["ASIA","EUROPE","NORTH AMERICA","AFRICA"],
+    ["INDIA","SRI LANKA","THAILAND","MALAYSIA"],
+    ["3","5","7","12"],
+    ["ICELAND","NORWAY","FINLAND","SWITZERLAND"],
+    ["ANDES","HIMALAYA","KARAKORAM","PAMIR"],
+    ["USA","AUSTRALIA","SAUDI ARABIA","CHINA"],
+    ["BORNEO","FINLAND","SUMATRA","GREENLAND"],
+    ["1982","1989","1995","1997"],
+    ["DAOCHENG YADING AIRPOT,CHINA","KUSHOK BAKULA RIMPOCHHE AIRPORT,LRH","QAMDO BAMDA AIRPOT,CHINA","NONE OF THE ABOVE"],
+    ["MISSOURI RIVER","COLORADO RIVER","MISSISSIPPI RIVER","YUKON RIVER"],
+    ["AMAZON","BOSAWAS","SOUTHEAST ASIAN RAIN FOREST","DAINTREE RAIN FOREST"],
+    ["45","50","51","75"],
+    ["HIMALAYA","ANDES","ROCKY MOUNTAINS","URAL MOUNTAINS"],
+    
+]
+
+
+answer5 = [2,2,3,0,2,0,0,0,3,0,3,0,1,0,2,0,1,3,2,1,2,3,2,3,3,0,1,0,2,1]
+user_list5 = []
+
+indexes5 = []
+def index5():
+    global indexes5
+    while(len(indexes5) < 10):
+        x = random.randint(0,29)
+        if x in indexes5:
+            continue
+        else:
+            indexes5.append(x)
+            
+index5()
+    
+    
+def showresult5(score5):
+    lblquestion5.destroy()
+    r17.destroy()
+    r18.destroy()
+    r19.destroy()
+    r20.destroy()
+    btnwait5.destroy()
+    
+    labelresultimage5.pack()
+    labelresulttext5.pack()
+    if score5 >= 40:
+        img = PhotoImage(file="win1.png")
+        labelresultimage5.configure(image=img)
+        labelresultimage5.image = img
+        labelresulttext4.configure(text="CONGRATS,YOU WON THE QUIZ !!")
+    elif(score5 >= 30 and score5 < 40):
+        img = PhotoImage(file="good.png")
+        labelresultimage5.configure(image=img)
+        labelresultimage5.image = img
+        labelresulttext5.configure(text="GOOD JOB  !!")
+    elif(score5 >= 20 and score5 < 30):
+        img = PhotoImage(file="good3.png")
+        labelresultimage5.configure(image=img)
+        labelresultimage5.image = img
+        labelresulttext4.configure(text="YOU DID WELL,BUT CAN DO BETTER  !!")
+    elif(score5 >= 10 and score5 < 20):
+        img = PhotoImage(file="good2.png")
+        labelresultimage5.configure(image=img)
+        labelresultimage5.image = img
+        labelresulttext5.configure(text="KEEP TRYING YOU WILL DO BETTER ONE DAY !!")
+    else:
+        img = PhotoImage(file="lose.png")
+        labelresultimage5.configure(image=img)
+        labelresultimage5.image = img
+        labelresulttext5.configure(text="YOU SHOULD WORK HARD ")
+    
+    
+    
+
+
+
+def calc5():
+    global indexes5,user_list5,answer5
+    x = 0
+    score5 = 0
+    for i in indexes5:
+        if user_list5[x] == answer5[i]:
+            score5 = score5 + 5
+        x += 1
+    print(score5) 
+    showresult5(score5)
+
+    
+     
+ques = 1
+def selectedsports():
+    global radiovar5,user_list5
+    global lblquestion5,r17,r18,r19,r20
+    global ques 
+    x = radiovar5.get()
+    user_list5.append(x)
+    radiovar5.set(-1)
+    if ques < 10:
+        lblquestion5.config(text= QUESTION5[indexes5[ques]])
+        r17["text"] = OPTION5[indexes5[ques]][0]
+        r18["text"] = OPTION5[indexes5[ques]][1]
+        r19["text"] = OPTION5[indexes5[ques]][2]
+        r20["text"] = OPTION5[indexes5[ques]][3]
+        ques += 1
+    else:
+        calc5()
+         
+    
+    
+
+    
+def endclicked5():
+    lblquestion5.destroy()
+    r17.destroy()
+    r18.destroy()
+    r19.destroy()
+    r20.destroy()
+    btnwait5.destroy()
+    labelresultimage5.destroy()
+    labelresulttext5.destroy()
+    
+    
+    
+    labelrestartimage5.pack()
+    labelendtext5.pack()
+    
+#THE QUESTION ANSWER FOR SPORTS QUIZ ENDS HERE 
+
+#QUESTION AND QUESTION CHOICE FOR ANIME  QUIZ STARTS HERE
+
+QUESTION6 = [
+    "What is actually manga",
+    "Anime originates from which country",
+    "In the first season of In Sword Art Online, what is the black blade used by Kirito called",
+    "As of 2021, what is the highest-grossing anime movies of all time",
+    "Who is the main character of the anime Pokémon",
+    "In the anime Dragon Ball, what can you do after collecting all seven dragon balls",
+    "In the anime Attack on Titan the main characters were trained in the army to fight against Titans What are actually Titans",
+    "Which of the following anime features a character called Sophie",
+    "How to run like Naruto, the main character in the anime of the same name",
+    "What is special about the giant cat in the anime My Neighbour Totoro",
+    "In the anime Fairy Tail, which kind of wizard is Lucy",
+    "The Gum-Gum Pistol is a signature attack of which anime character",
+    "In the anime Fullmetal Alchemist, which Homunculi is created when Alphonse and Edward Elric used alchemy to bring their mom back to life?",
+    "In the anime Death Note, who was the first successor of L in the Kira investigation",
+    "In the anime Hunter X Hunter, who is the father of Gon Freecss",
+    "Which Japanese anime studio is known for famous works, such as Princess Mononoke, Grave of the Fireflies, Spirited Away, and My Neighbour Totoro?",
+    "In addition to original works, Japanese anime are often adapted from light novels, manga, and ",
+    "Haikyu!! is an anime centred around a boy who wants to be successful in which sport",
+    " Which of the following facts is NOT true about Doraemon in the anime of the same name",
+    "In the anime Fairy Tail, Natsu is able to absorb and reflect nearly all types of attack from which two elements? ",
+    "What is the meaning of Deku, the nickname of Izuku Midoriya in the anime My Hero Academia",
+    "In the anime Tokyo Ghoul, the organs of which ghoul was transplanted to the main hero",
+    "Goku belongs to which race in the anime Dragon Ball",
+    "Which of the following rules is NOT true about the Death Note",
+    "In season 1 of the anime Bleach, who is the Lieutenant of the 11th Division",
+    " In the first arc of the anime Sailor Moon, who are the main villains who try to free the evil Queen Metaria",
+    "In the anime Code Geass, the character C.C. is known for her obsession with which food",
+    "Who is the strongest measter who has ever graduated from Death Weapon Meister Academy in the anime Soul Eater",
+    " What is special about the eyes of Spike Spiegel in the anime Cowboy Bebop",
+    "Who is the older brother of Inuyasha in the anime of the same name",       
+]
+
+
+OPTION6 = [
+    ["A form of comics","A form of animation","A form of video game","A form of novel"],
+    ["The United States","INDIA","JAPAN","CHINA"],
+    [" The Elucidator","Blue Dragon","Rising Sun","YOU"],
+    ["Howl’s Moving Castle","Your Name"," Demon Slayer: Mugen Train","JUJUTSU KAISEN 0 MOVIE"],
+    [" Misty","Ash Ketchum","Professor Samuel Oak","GARY"],
+    ["To fulfil your wishes","To become immortal","To rule the world","TO BECOME YOURSELF"],
+    ["Giant monsters","Giant PEOPLE","Giant DINOSAUR","GIANT RAT"],
+    [" Sailor Moon","Go! Princess PreCure","Howl’s Moving Castle","NONE"],
+    [" Put your arms back and head forward"," Put your right hand out, left foot in"," Put your left hand out, right foot in","ITNA BHI NAHI PATA BRO "],
+    ["It is also a plane","It is also a bus"," It is also a ship","IT IS A DONKEY "],
+    ["Fire Wizard", "ICE  Wizard","CELESTRIAL Wizard","GHANTE KA  Wizard"],
+    [" Monkey D. Luffy","Black Butler","Chobits","THIS IS NOT AN OPTION"],
+    ["GREED","SLOTH","ENVY","WRATH"],
+    ["LIGHT","Mikami","MELLO","NONE"],
+    ["Gin Freecss","Mito Freecss","Ging Freecss","LING Freecss"],
+    [" Kyoto Animation","Studio Ghibli","Studio Bones","NONE"],
+    [" Local legends","Video games","Real life stories","YES"],
+    [" Volleyball","BASKETBALL","BASEBALL","CRICKET"],
+    [" Doraemon has no ears","Doraemon is a robotic cat","Doraemon has one brother and one sister","HE DOES HAVE(YOU KNOW WHAT I MEAN)"],
+    ["Lightning and fire"," Water and wind","Ice and fire","FIRE AND LIGHTNING"],
+    [". A person who cannot do anything","A nerd who loves playing game"," A good friend","NONE"],
+    ["Shuu Tsukiyama","Rize Kamishiro","Ken Kaneki","ALL OF THE ABOVE"],
+    [" Majin"," Saiyan"," Namekian","LIYA"],
+    ["Once you have written down the name of the victim and other conditions, the death will happen even when the note is destroyed","You can’t kill those people who only have fewer than 5 minutes of their life left","The spell will not affect a person whose name has been spelt wrongly 4 times","PICK ANY OF ABOVE THREE"],
+    ["Yumichika Ayasegawa","Ikkaku Madarame"," Yachiru Kusajishi","NONE "],
+    ["DARK KINGDOM","ANGRY ANGELS","Black Shadow","NONE OF THE ABOVE"],
+    ["PIZZA","French fries","Hamburgers","VADAPAV"],
+    ["Death the Kid","Ox Ford","Franken Stein","NOTHING"],
+    ["They are always red"," They are artificial","They have different sizes","THEY HAVE GOOD VOICE"],
+    [" Naraku","Sesshomaru","Toga","NAHI PATA"],    
+]
+
+answer6 = [1,2,0,2,1,0,1,2,0,1,2,0,1,0,2,1,1,0,2,0,0,2,1,1,1,0,0,2,1,1]
+user_list6 = []
+
+indexes6 = []
+def index6():
+    global indexes6
+    while(len(indexes6) < 10):
+        x = random.randint(0,29)
+        if x in indexes6:
+            continue
+        else:
+            indexes6.append(x)
+            
+index6()
+    
+    
+def showresult6(score6):
+    lblquestion6.destroy()
+    r21.destroy()
+    r22.destroy()
+    r23.destroy()
+    r24.destroy()
+    btnwait6.destroy()
+    
+    labelresultimage6.pack()
+    labelresulttext6.pack()
+    if score6 >= 40:
+        img = PhotoImage(file="win1.png")
+        labelresultimage6.configure(image=img)
+        labelresultimage6.image = img
+        labelresulttext6.configure(text="CONGRATS,YOU WON THE QUIZ !!")
+    elif(score6 >= 30 and score6 < 40):
+        img = PhotoImage(file="good.png")
+        labelresultimage6.configure(image=img)
+        labelresultimage6.image = img
+        labelresulttext6.configure(text="GOOD JOB  !!")
+    elif(score6 >= 20 and score6 < 30):
+        img = PhotoImage(file="good3.png")
+        labelresultimage6.configure(image=img)
+        labelresultimage6.image = img
+        labelresulttext6.configure(text="YOU DID WELL,BUT CAN DO BETTER  !!")
+    elif(score6 >= 10 and score6 < 20):
+        img = PhotoImage(file="good2.png")
+        labelresultimage6.configure(image=img)
+        labelresultimage6.image = img
+        labelresulttext6.configure(text="KEEP TRYING YOU WILL DO BETTER ONE DAY !!")
+    else:
+        img = PhotoImage(file="lose.png")
+        labelresultimage6.configure(image=img)
+        labelresultimage6.image = img
+        labelresulttext6.configure(text="YOU SHOULD WORK HARD ")
+    
+    
+    
+
+
+
+def calc6():
+    global indexes6,user_list6,answer6
+    x = 0
+    score6 = 0
+    for i in indexes6:
+        if user_list6[x] == answer6[i]:
+            score6 = score6 + 5
+        x += 1
+    print(score6) 
+    showresult6(score6)
+
+    
+     
+ques = 1
+def selectedanime():
+    global radiovar6,user_list6
+    global lblquestion6,r21,r22,r23,r24
+    global ques 
+    x = radiovar6.get()
+    user_list6.append(x)
+    radiovar6.set(-1)
+    if ques < 10:
+        lblquestion6.config(text= QUESTION6[indexes6[ques]])
+        r21["text"] = OPTION6[indexes6[ques]][0]
+        r22["text"] = OPTION6[indexes6[ques]][1]
+        r23["text"] = OPTION6[indexes6[ques]][2]
+        r24["text"] = OPTION6[indexes6[ques]][3]
+        ques += 1
+    else:
+        calc6()
+         
+    
+    
+
+    
+def endclicked6():
+    lblquestion6.destroy()
+    r21.destroy()
+    r22.destroy()
+    r23.destroy()
+    r24.destroy()
+    btnwait6.destroy()
+    labelresultimage6.destroy()
+    labelresulttext6.destroy()
+    
+    
+    
+    labelrestartimage6.pack()
+    labelendtext6.pack()
+
+#THE QUESTION ANSWER FOR ANIME  QUIZ ENDS HERE 
+
+#QUESTION AND QUESTION CHOICE FOR APPTITUDE QUIZ STARTS HERE
+
+
+#THE QUESTION ANSWER FOR APPTITUDE  QUIZ ENDS HERE 
+
+
+#QUESTION AND QUESTION CHOICE FOR APPTITUDE QUIZ STARTS HERE
+
+QUESTION7 = [
+    "WHO IS THE FIRST PRIME MINISTER OF INDIA",
+    "CURRENT RAILWAY MINISTER OF INDIA IS",
+    "WHICH GOD IS ALSO KNOWN AS GAURI NANDAN",
+    "WHAT DOES NOT GROW ON TREE ACCORDING TO A POPULAR HINDI SAYING",
+    "WHICH CITY IS KNOWN AS PINK CITY IN INDIA",
+    "WHO WROTE INDIA'S NATIONAL ANTHEM",
+    "HOW MANY RELIGIONS ARE THERE IN INDIA ",
+    "HOW MANY STATES ARE THERE IN INDIA",
+    "WHERE in   INDIA GATE LOCATED",
+    "WHICH OF THE FOLLOWING IS NOT A STATE OF INDIA",
+    "WHICH ONE IS THE SMALLEST OCEAN IN THE WORLD",
+    "WHICH COUNTRY GIFTED THE STATUE OF LIBERTY TO USA IN 1886",
+    "DEAD SEA IS LOCATED BETWEEN WHICH TWO COUNTRIES ",
+    "IN WHICH OCEAN BERMUDA TRIANGLE REGION IS LOCATED",
+    "WHICH COUNTRY IS KNOWN AS THE PLAYGROUND OF EUROPE",
+    "WHICH COUNTRY IS ALSO KNOWN AS THE LAND OF RISING SUN",
+    "WHICH COUNTRY IS KNOWN AS THE LAND OF THUNDERBOLTS",
+    "WHICH CONTINENT HAS THE HIGHEST NUMBER OF COUNTRIES",
+    "IN WHICH COUNTRY,WHITE ELEPHANT IS FOUND",
+    "TOTAL NUMBER OF OCEANS IN THE WORLD IS ",
+    "WHICH COUNTRY IS ALSO KNOWN AS THE LAND OF THOUSAND LAKES",
+    "WHICH PLATEAU IS KNOWN AS THE ROOF OF THE WORLD",
+    "THE WORLD'S LONGEST STRAIGHT ROAD WITHOUT ANY CORNERS IS LOCATED IN ",
+    "WHICH ONE IS THE BIGGEST ISLAND IN THE WORLD",
+    "IN WHICH YEAR HONG KONG BECAME A PART OF CHINA AFTER BRITISH RULE",
+    "WHICH ONE IS THE WORLD'S HIGHEST-ALTITUDE CIVILIAN AIRPOT",
+    "WHICH RIVER IS FLOWING THROUGH GRAND CANYON IN ARIZONA,USA",
+    "WHICH ONE IS THE LARGEST TROPICAL RAIN FOREST IN THE WORLD",
+    "HOW MANY COUNTRIES WERE PARTICIPATED AS FOUNDING MEMBER OF UNITED NATION",
+    "WHICH ONE IS THE LONGEST CONTINENTAL MOUNTAIN RANGE IN THE WORLD",
+    
+    
+]
+
+OPTION7 = [
+    ["LAL BAHADUR SHASHTRI","NARENDRA MODI","JAWALAL NEHRU","MANMOHAN SINGH"],
+    ["MAMTA BANARJEE","RAM VILASH","ASHWINI VAISHNAW","PIYUSH GOYAL"],
+    ["AGNI","INDRA","HANUMAN","GANESHA"],
+    ["MONEY","FLOWERS","LEAVES","FRUITS"],
+    ["BANGLORE","MAYSORE","JAIPUR","KOCHI"],
+    ["RABINDRANATH TAGORE","LAL BAHADUR SHASTRI","CHETAN BHAGAT","RK NARAYAN"],
+    ["6","7","8","9"],
+    ["28","29","31","32"],
+    ["AGRA","PUNJAB","MUMBAI","NEW DELHI"],
+    ["VRINDACHAL","GOA","JHARKHAND","CHATTISGARH"],
+    ["INDIAN", "PACIFIC","ATLANTIC","ARCTIC"],
+    ["FRANCE","CANADA","BRAZIL","ENGLAND"],
+    ["JORDAN AND SUDAN","JORDAN AND ISRAEL","TURKEY AND UAE","UAE AND EGYPT"],
+    ["ATLANTIC","INDIAN","PACIFIC","ARCTIC"],
+    ["AUSTRIA","HOLLAND","SWITZERLAND","ITALY"],
+    ["JAPAN","NEW ZEALAND","FIJI","CHINA"],
+    ["CHINA","BHUTAN","MONGOLIA","THAILAND"],
+    ["ASIA","EUROPE","NORTH AMERICA","AFRICA"],
+    ["INDIA","SRI LANKA","THAILAND","MALAYSIA"],
+    ["3","5","7","12"],
+    ["ICELAND","NORWAY","FINLAND","SWITZERLAND"],
+    ["ANDES","HIMALAYA","KARAKORAM","PAMIR"],
+    ["USA","AUSTRALIA","SAUDI ARABIA","CHINA"],
+    ["BORNEO","FINLAND","SUMATRA","GREENLAND"],
+    ["1982","1989","1995","1997"],
+    ["DAOCHENG YADING AIRPOT,CHINA","KUSHOK BAKULA RIMPOCHHE AIRPORT,LRH","QAMDO BAMDA AIRPOT,CHINA","NONE OF THE ABOVE"],
+    ["MISSOURI RIVER","COLORADO RIVER","MISSISSIPPI RIVER","YUKON RIVER"],
+    ["AMAZON","BOSAWAS","SOUTHEAST ASIAN RAIN FOREST","DAINTREE RAIN FOREST"],
+    ["45","50","51","75"],
+    ["HIMALAYA","ANDES","ROCKY MOUNTAINS","URAL MOUNTAINS"],
+    
+]
+
+
+answer7 = [2,2,3,0,2,0,0,0,3,0,3,0,1,0,2,0,1,3,2,1,2,3,2,3,3,0,1,0,2,1]
+user_list7 = []
+
+indexes7 = []
+def index7():
+    global indexes7
+    while(len(indexes7) < 10):
+        x = random.randint(0,29)
+        if x in indexes7:
+            continue
+        else:
+            indexes7.append(x)
+            
+index7()
+    
+    
+def showresult7(score7):
+    lblquestion7.destroy()
+    r25.destroy()
+    r26.destroy()
+    r27.destroy()
+    r28.destroy()
+    btnwait7.destroy()
+    
+    labelresultimage7.pack()
+    labelresulttext7.pack()
+    if score7 >= 40:
+        img = PhotoImage(file="win1.png")
+        labelresultimage7.configure(image=img)
+        labelresultimage7.image = img
+        labelresulttext7.configure(text="CONGRATS,YOU WON THE QUIZ !!")
+    elif(score7 >= 30 and score7 < 40):
+        img = PhotoImage(file="good.png")
+        labelresultimage7.configure(image=img)
+        labelresultimage7.image = img
+        labelresulttext7.configure(text="GOOD JOB  !!")
+    elif(score7 >= 20 and score7 < 30):
+        img = PhotoImage(file="good3.png")
+        labelresultimage7.configure(image=img)
+        labelresultimage7.image = img
+        labelresulttext7.configure(text="YOU DID WELL,BUT CAN DO BETTER  !!")
+    elif(score7 >= 10 and score7 < 20):
+        img = PhotoImage(file="good2.png")
+        labelresultimage7.configure(image=img)
+        labelresultimage7.image = img
+        labelresulttext7.configure(text="KEEP TRYING YOU WILL DO BETTER ONE DAY !!")
+    else:
+        img = PhotoImage(file="lose.png")
+        labelresultimage7.configure(image=img)
+        labelresultimage7.image = img
+        labelresulttext7.configure(text="YOU SHOULD WORK HARD ")
+    
+    
+    
+
+
+
+def calc7():
+    global indexes7,user_list7,answer7
+    x = 0
+    score7 = 0
+    for i in indexes7:
+        if user_list7[x] == answer6[i]:
+            score6 = score7 + 5
+        x += 1
+    print(score7) 
+    showresult7(score7)
+
+    
+     
+ques = 1
+def selectedap():
+    global radiovar7,user_list7
+    global lblquestion7,r25,r26,r27,r28
+    global ques 
+    x = radiovar7.get()
+    user_list7.append(x)
+    radiovar7.set(-1)
+    if ques < 10:
+        lblquestion7.config(text= QUESTION7[indexes7[ques]])
+        r25["text"] = OPTION6[indexes6[ques]][0]
+        r26["text"] = OPTION6[indexes6[ques]][1]
+        r27["text"] = OPTION6[indexes6[ques]][2]
+        r28["text"] = OPTION6[indexes6[ques]][3]
+        ques += 1
+    else:
+        calc7()
+         
+    
+    
+
+    
+def endclicked7():
+    lblquestion7.destroy()
+    r25.destroy()
+    r26.destroy()
+    r27.destroy()
+    r28.destroy()
+    btnwait7.destroy()
+    labelresultimage7.destroy()
+    labelresulttext7.destroy()
+    
+    
+    
+    labelrestartimage7.pack()
+    labelendtext7.pack()
+
+
+
+#THE QUESTION ANSWER FOR APPTITUDE  QUIZ ENDS HERE 
+
+
+
+    
+
+    
+        
+     
+
+    
+    
+#THE QUESTION ANSWER FOR GK QUIZ ENDS HERE  
+
+#AFTER PRESSING THE APPTITUDE QUIZ BUTTON THE USER WILL COME TO THIS LAYOUT ALL THE LAYOUT OF PREVIOUS PAGE WILL GET DESTROYED
+
+def apispressed():
+    btngk.destroy()
+    btnpy.destroy()
+    btndbms.destroy()
+    btnds.destroy()
+    btnsports.destroy()
+    btnanime.destroy()
+    btnap.destroy()  
+    
+    lblquestion7.pack(pady=(100,30))
+    r25.pack(pady=5)
+    r26.pack(pady=5)
+    r27.pack(pady=5)
+    r28.pack(pady=5)
+    btnwait7.pack(pady =(20,10))
+
+
+
+#AFTER PRESSING THE ANIME  QUIZ BUTTON THE USER WILL COME TO THIS LAYOUT ALL THE LAYOUT OF PREVIOUS PAGE WILL GET DESTROYED
+
+def animeispressed():
+    btngk.destroy()
+    btnpy.destroy()
+    btndbms.destroy()
+    btnds.destroy()
+    btnsports.destroy()
+    btnanime.destroy()
+    btnap.destroy()  
+    
+    lblquestion6.pack(pady=(100,30))
+    r21.pack(pady=5)
+    r22.pack(pady=5)
+    r23.pack(pady=5)
+    r24.pack(pady=5)
+    btnwait6.pack(pady =(20,10))
+
+#AFTER PRESSING THE SPORTS  QUIZ BUTTON THE USER WILL COME TO THIS LAYOUT ALL THE LAYOUT OF PREVIOUS PAGE WILL GET DESTROYED 
+
+def sportsispressed():
+    btngk.destroy()
+    btnpy.destroy()
+    btndbms.destroy()
+    btnds.destroy()
+    btnsports.destroy()
+    btnanime.destroy()
+    btnap.destroy()  
+    
+    lblquestion5.pack(pady=(100,30))
+    r17.pack(pady=5)
+    r18.pack(pady=5)
+    r19.pack(pady=5)
+    r20.pack(pady=5)
+    btnwait5.pack(pady =(20,10))
+
+    
+#AFTER PRESSING THE DS QUIZ BUTTON THE USER WILL COME TO THIS LAYOUT ALL THE LAYOUT OF PREVIOUS PAGE WILL GET DESTROYED 
+def dsispressed():
+    btngk.destroy()
+    btnpy.destroy()
+    btndbms.destroy()
+    btnds.destroy()
+    btnsports.destroy()
+    btnanime.destroy()
+    btnap.destroy()  
+    
+    lblquestion4.pack(pady=(100,30))
+    r13.pack(pady=5)
+    r14.pack(pady=5)
+    r15.pack(pady=5)
+    r16.pack(pady=5)
+    btnwait4.pack(pady =(20,10))
+
+
+
+        
+
+#AFTER PRESSING THE DBMS QUIZ BUTTON THE USER WILL COME TO THIS LAYOUT ALL THE LAYOUT OF PREVIOUS PAGE WILL GET DESTROYED 
+def dbmsispressed():
+    btngk.destroy()
+    btnpy.destroy()
+    btndbms.destroy()
+    btnds.destroy()
+    btnsports.destroy()
+    btnanime.destroy()
+    btnap.destroy()  
+    
+    
+    lblquestion3.pack(pady=(100,30))
+    r9.pack(pady=5)
+    r10.pack(pady=5)
+    r11.pack(pady=5)
+    r12.pack(pady=5)
+    btnwait3.pack(pady =(20,10))
+    
+    
+    
+
+#AFTER PRESSING THE PYTHON QUIZ BUTTON THE USER WILL COME TO THIS LAYOUT ALL THE LAYOUT OF PREVIOUS PAGE WILL GET DESTROYED
+def pyispressed():
+    btngk.destroy()
+    btnpy.destroy()
+    btndbms.destroy()
+    btnds.destroy()
+    btnsports.destroy()
+    btnanime.destroy()
+    btnap.destroy()  
+    
+    
+    lblquestion2.pack(pady=(100,30))
+    r5.pack(pady=5)
+    r6.pack(pady=5)
+    r7.pack(pady=5)
+    r8.pack(pady=5)
+    btnwait2.pack(pady =(20,10))
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+#AFTER PRESSING THE GK QUIZ BUTTON THE USER WILL COME TO THIS LAYOUT ALL THE LAYOUT OF PREVIOUS PAGE WILL GET DESTROYED py 
+def gkispressed():
+    btngk.destroy()
+    btnpy.destroy()
+    btndbms.destroy()
+    btnds.destroy()
+    btnsports.destroy()
+    btnanime.destroy()    
+    btnap.destroy()  
+    
+    
+    
+    lblquestion1.pack(pady=(100,30))
+    r1.pack(pady=5)
+    r2.pack(pady=5)
+    r3.pack(pady=5)
+    r4.pack(pady=5)
+    btnwait.pack(pady =(20,10))
+    
+#AFTER PRESSING THE PYTHON QUIZ BUTTON THE USER WILL COME TO THIS LAYOUT ALL THE LAYOUT OF PREVIOUS PAGE WILL GET DESTROYED 
+#AFTER PRESSING THE DBMS QUIZ BUTTON THE USER WILL COME TO THIS LAYOUT ALL THE LAYOUT OF PREVIOUS PAGE WILL GET DESTROYED 
+#AFTER PRESSING THE DS QUIZ BUTTON THE USER WILL COME TO THIS LAYOUT ALL THE LAYOUT OF PREVIOUS PAGE WILL GET DESTROYED 
+#AFTER PRESSING THE SPORTS  QUIZ BUTTON THE USER WILL COME TO THIS LAYOUT ALL THE LAYOUT OF PREVIOUS PAGE WILL GET DESTROYED 
+#AFTER PRESSING THE ANIME  QUIZ BUTTON THE USER WILL COME TO THIS LAYOUT ALL THE LAYOUT OF PREVIOUS PAGE WILL GET DESTROYED 
+#AFTER PRESSING THE APPTITUDE QUIZ BUTTON THE USER WILL COME TO THIS LAYOUT ALL THE LAYOUT OF PREVIOUS PAGE WILL GET DESTROYED 
+
+    
+    
+
+
+
+     
+#AFTER PRESSING  start THE USER WILL COME TO THIS LAYOUT
+def startispressed():
+    labelimage.destroy()
+    labeltext.destroy()
+    lblwelcome.destroy()
+    lblrules.destroy()
+    btnStart.destroy()
+    
+    
+    
+        
+    btngk.pack()
+    btnpy.pack()
+    btndbms.pack()
+    btnds.pack()
+    btnsports.pack()
+    btnanime.pack()
+    btnap.pack()
+    
+    
+
+
+
+
+#THIS IS THE CODE FOR FIRST THE FIRST PAGE 
+root = tkinter.Tk()
+root.title("QUIZ")
+root.geometry("700x600")
+root.config(background="#7FCDCD")
+
+
+
+
+img1 = PhotoImage(file="image1.png")
+labelimage = Label(
+root,
+image = img1,
+background = "#7FCDCD",
+width = 1700,
+height = 500,
+justify = "center",
+)
+
+ 
+labeltext = Label(
+root,
+text = "QUIZBOX",
+font = ("Aril",36,"bold"),
+background = "#7FCDCD",
+width= 52,
+height = 1,
+)
+labeltext.pack()
+labelimage.pack(pady = (10,5))
+
+
+btnStart = Button(
+root,
+text = "START THE QUIZ ",
+relief = FLAT,
+border = 0,
+width = 40,
+height = 3,
+font = ("Arial",10,"bold"),
+
+background = "#DD4132",
+command = startispressed,
+)
+
+btnStart.pack(pady= (10,5))
+
+
+btnwait = Button(
+root,
+text = "exit",
+background = "#7FCDCD",
+width = 7,
+height = 2,
+justify = "left",
+command = endclicked,
+)
+
+btnwait2 = Button(
+root,
+text = "exit",
+background = "#7FCDCD",
+width = 7,
+height = 2,
+justify = "left",
+command = endclicked2,
+)
+
+btnwait3 = Button(
+root,
+text = "exit",
+background = "#7FCDCD",
+width = 7,
+height = 2,
+justify = "left",
+command = endclicked3,
+)
+
+btnwait4 = Button(
+root,
+text = "exit",
+background = "#7FCDCD",
+width = 7,
+height = 2,
+justify = "left",
+command = endclicked4,
+)
+
+btnwait5 = Button(
+root,
+text = "exit",
+background = "#7FCDCD",
+width = 7,
+height = 2,
+justify = "left",
+command = endclicked5,
+)
+
+btnwait6 = Button(
+root,
+text = "exit",
+background = "#7FCDCD",
+width = 7,
+height = 2,
+justify = "left",
+command = endclicked6,
+)
+
+btnwait7 = Button(
+root,
+text = "exit",
+background = "#7FCDCD",
+width = 7,
+height = 2,
+justify = "left",
+command = endclicked7,
+)
+
+#AFTER USER CLICKS START BUTTONS HE GOES TO NEXT PAGE 
+
+lblwelcome = Label(
+root,
+text = "Welcome to QUIZBOX\nCLICK START WHEN YOU ARE READY ",
+background = "#7FCDCD",
+font = ("Arial",12,"bold"),
+width = 200,
+height = 2,
+)
+lblwelcome.pack()
+
+
+
+lblrules = Label(
+root,
+text="THIS QUIZBOX CONTAINS QUESTION IN 7 SUBJECTS\nEACH SUBJECTS CONTAINS 10 QUESTION\nDONT TOUCH EXIT BUTTON OR ELSE IT WILL END THE QUIZ\n ALL THE BEST",
+width = 300,
+font = ("Times",14),
+background = "#F2552C"
+)
+lblrules.pack(pady = (10,5))
+
+
+
+#LAYOUT FOR SECOND PAGE 
+
+btngk = Button(
+root,
+text = "GENERAL KNOWLEDGE ",
+font = ("Arial",12,"bold"),
+height = 6,
+width = 200,
+relief = "flat",
+background = "#316879",
+command = gkispressed,
+    
+        
+)
+    
+#AFTER PRESSING THE GENERAL QUIZ BUTTON THE USER WILL GO TO NEXT PAGE OF GK
+
+
+btnpy = Button(
+root,
+text = "PYTHON ",
+font = ("Arial",12,"bold"),
+height=6,
+width = 200,
+relief = "flat",
+background = "#f47a60",
+command = pyispressed,
+)
+    
+    
+btndbms = Button(
+root,
+text = "DBMS  ",
+font = ("Arial",12,"bold"),
+height=5,
+width = 200,
+relief = "flat",
+background = "#7fe7dc",
+command = dbmsispressed,
+)
+
+    
+btnds = Button(
+root,
+text = "DATA STRUCTURE ",
+font = ("Arial",12,"bold"),
+height=5,
+width = 200,
+relief = "flat",
+background = "#ced7d8",
+command = dsispressed,
+)
+
+    
+btnsports = Button(
+root,
+text = "SPORTS ",
+font = ("Arial",12,"bold"),
+height=5,
+width = 200,
+relief = "flat",
+background = "#aed6dc",
+command = sportsispressed,
+)
+    
+    
+btnanime = Button(
+root,
+text = "ANIME  ",
+font = ("Arial",12,"bold"),
+height=5,
+width = 200,
+relief = "flat",
+background = "#ff9a8d",
+command = animeispressed, 
+)
+    
+    
+btnap = Button(
+root,
+text = "APPTITUDE ",
+font = ("Arial",12,"bold"),
+height=5,
+width = 200,
+relief = "flat",
+background = "#4a536b",
+command = apispressed,
+) 
+
+#LAYOUT FOR GK QUIZ PAGE 
+
+global lblquestion1
+lblquestion1 = Label(
+root,
+text = QUESTION1[indexes[0]] ,
+font = ("Consolas",16),
+width = 500,
+justify = "center",
+wraplength = 400,
+background = "light green",
+)
+
+global radiovar
+radiovar = IntVar()
+radiovar.set(-1)
+
+global r1
+r1 = Radiobutton(
+root,
+text = OPTION1[indexes[0]][0],
+font = ("Times",16),
+value = 0,
+variable = radiovar,
+command = selected,
+background = "red",
+)
+
+global r2
+r2 = Radiobutton(
+root,
+text = OPTION1[indexes[0]][1],
+font = ("Times",16),
+value = 1,
+variable = radiovar,
+command = selected,
+background = "white",   
+)
+
+global r3
+r3 = Radiobutton(
+root,
+text = OPTION1[indexes[0]][2],
+font = ("Times",16),
+value = 2,
+variable = radiovar,
+command = selected ,
+background = "blue",
+)   
+
+global r4
+r4 = Radiobutton(
+root,
+text = OPTION1[indexes[0]][3],
+font = ("Times",16),
+value = 3,
+variable = radiovar,
+command = selected,
+background = "orange",
+)
+
+labelresultimage = Label(
+root,
+background = "#7FCDCD",
+width = 500,
+height = 300,
+)
+labelresulttext = Label(
+root,
+font = ("Consolas",20),
+)
+
+
+
+# result image and text for python
+
+labelresultimage2 = Label(
+root,
+background = "#7FCDCD",
+width = 500,
+height = 300,
+)
+
+labelresulttext2 = Label(
+root,
+font = ("Consolas",20),
+)
+
+#ends here 
+
+#RESULT IMAGE AND TEXT FOR DBMS
+
+labelresultimage3 = Label(
+root,
+background = "#7FCDCD",
+width = 500,
+height = 300,
+)
+
+labelresulttext3 = Label(
+root,
+font = ("Consolas",20),
+)
+#ENDS HERE
+
+#RESULT IMAGE AND TEXT FOR DS
+labelresultimage4 = Label(
+root,
+background = "#7FCDCD",
+width = 500,
+height = 300,
+)
+
+labelresulttext4 = Label(
+root,
+font = ("Consolas",20),
+)
+#ENDS HERE
+#RESULT IMAGE AND TEXT FOR SPORTS
+labelresultimage5 = Label(
+root,
+background = "#7FCDCD",
+width = 500,
+height = 300,
+)
+
+labelresulttext5 = Label(
+root,
+font = ("Consolas",20),
+)
+#ENDS HERE
+#RESULT IMAGE AND TEXT FOR ANIME
+labelresultimage6 = Label(
+root,
+background = "#7FCDCD",
+width = 500,
+height = 300,
+)
+
+labelresulttext6 = Label(
+root,
+font = ("Consolas",20),
+)
+#ENDS HERE
+#RESULT IMAGE AND TEXT FOR APPTITUDE
+labelresultimage7 = Label(
+root,
+background = "#7FCDCD",
+width = 500,
+height = 300,
+)
+
+labelresulttext7 = Label(
+root,
+font = ("Consolas",20),
+)
+#ENDS HERE 
+
+#GK END TEXT AND IMAGE
+labelendtext = Label(
+root,
+text = "YOU CAN AGAIN START THE APPLICATION AND CAN GIVE THE QUIZ",
+font = ("Arial",20,"bold"),
+background = "#7FCDCD",
+width = 100,
+height = 1,
+)
+
+restartimage = PhotoImage(file="THANKYOU1672071898.png")
+
+labelrestartimage = Label(
+root,
+image = restartimage,
+width = 1700,
+height = 500,
+background = "#7FCDCD",
+)
+#ENDS HERE 
+
+#PYTHON END TEXT  AND IMAGE 
+
+labelendtext2 = Label(
+root,
+text = "YOU CAN AGAIN START THE APPLICATION AND CAN GIVE THE QUIZ",
+font = ("Arial",20,"bold"),
+background = "#7FCDCD",
+width = 100,
+height = 1,
+)
+
+restartimage2 = PhotoImage(file="THANKYOU1672071898.png")
+
+labelrestartimage2 = Label(
+root,
+image = restartimage2,
+width = 1700,
+height = 500,
+background = "#7FCDCD",
+)
+#ENDS HERE
+
+#DBMS END TEXT AND IMAGE 
+labelendtext3 = Label(
+root,
+text = "YOU CAN AGAIN START THE APPLICATION AND CAN GIVE THE QUIZ",
+font = ("Arial",20,"bold"),
+background = "#7FCDCD",
+width = 100,
+height = 1,
+)
+
+restartimage3 = PhotoImage(file="THANKYOU1672071898.png")
+
+labelrestartimage3 = Label(
+root,
+image = restartimage3,
+width = 1700,
+height = 500,
+background = "#7FCDCD",
+)
+#ENDS HERE 
+#DS END TEXT AND IMAGE 
+
+labelendtext4 = Label(
+root,
+text = "YOU CAN AGAIN START THE APPLICATION AND CAN GIVE THE QUIZ",
+font = ("Arial",20,"bold"),
+background = "#7FCDCD",
+width = 100,
+height = 1,
+)
+
+restartimage4 = PhotoImage(file="THANKYOU1672071898.png")
+
+labelrestartimage4 = Label(
+root,
+image = restartimage4,
+width = 1700,
+height = 500,
+background = "#7FCDCD",
+)
+#ENDS HERE 
+#SPORTS END TEXT AND IMAGE 
+
+labelendtext5 = Label(
+root,
+text = "YOU CAN AGAIN START THE APPLICATION AND CAN GIVE THE QUIZ",
+font = ("Arial",20,"bold"),
+background = "#7FCDCD",
+width = 100,
+height = 1,
+)
+
+restartimage5 = PhotoImage(file="THANKYOU1672071898.png")
+
+labelrestartimage5 = Label(
+root,
+image = restartimage5,
+width = 1700,
+height = 500,
+background = "#7FCDCD",
+)
+#ENDS HERE 
+#ANIME END TEXT AND IMAGE
+
+labelendtext6 = Label(
+root,
+text = "YOU CAN AGAIN START THE APPLICATION AND CAN GIVE THE QUIZ",
+font = ("Arial",20,"bold"),
+background = "#7FCDCD",
+width = 100,
+height = 1,
+)
+
+restartimage6 = PhotoImage(file="THANKYOU1672071898.png")
+
+labelrestartimage6 = Label(
+root,
+image = restartimage6,
+width = 1700,
+height = 500,
+background = "#7FCDCD",
+)
+#ENDS HERE 
+#APPITUDE END TEXT AND IMAGE 
+
+labelendtext7 = Label(
+root,
+text = "YOU CAN AGAIN START THE APPLICATION AND CAN GIVE THE QUIZ",
+font = ("Arial",20,"bold"),
+background = "#7FCDCD",
+width = 100,
+height = 1,
+)
+
+restartimage7 = PhotoImage(file="THANKYOU1672071898.png")
+
+labelrestartimage7 = Label(
+root,
+image = restartimage7,
+width = 1700,
+height = 500,
+background = "#7FCDCD",
+)
+#ENDS HERE 
+    
+    
+
+#LAYOUT FOR PYTHON QUIZ PAGE 
+
+global lblquestion2
+lblquestion2 = Label(
+root,
+text = QUESTION2[indexes2[0]] ,
+font = ("Consolas",16),
+width = 500,
+justify = "center",
+wraplength = 400,
+background = "light green",
+)
+
+global radiovar1
+radiovar1 = IntVar()
+radiovar1.set(-1)
+
+global r5
+r5 = Radiobutton(
+root,
+text = OPTION2[indexes2[0]][0],
+font = ("Times",16),
+value = 0,
+variable = radiovar1,
+command = selectedpy,
+background = "red",
+)
+
+global r6
+r6 = Radiobutton(
+root,
+text = OPTION2[indexes2[0]][1],
+font = ("Times",16),
+value = 1,
+variable = radiovar1,
+command = selectedpy,
+background = "white",   
+)
+
+global r7
+r7 = Radiobutton(
+root,
+text = OPTION2[indexes2[0]][2],
+font = ("Times",16),
+value = 2,
+variable = radiovar1,
+command = selectedpy,
+background = "blue",
+)   
+
+global r8
+r8 = Radiobutton(
+root,
+text = OPTION2[indexes2[0]][3],
+font = ("Times",16),
+value = 3,
+variable = radiovar1,
+command = selectedpy,
+background = "orange",
+)
+
+
+
+
+
+#LAYOUT FOR DBMS QUIZ PAGE 
+
+global lblquestion3
+lblquestion3 = Label(
+root,
+text = QUESTION3[indexes3[0]] ,
+font = ("Consolas",16),
+width = 500,
+justify = "center",
+wraplength = 400,
+background = "light green",
+)
+
+global radiovar3
+radiovar3 = IntVar()
+radiovar3.set(-1)
+
+global r9
+r9 = Radiobutton(
+root,
+text = OPTION3[indexes3[0]][0],
+font = ("Times",16),
+value = 0,
+variable = radiovar3,
+command = selecteddbms,
+background = "red",
+)
+
+global r10
+r10 = Radiobutton(
+root,
+text = OPTION3[indexes3[0]][1],
+font = ("Times",16),
+value = 1,
+variable = radiovar3,
+command = selecteddbms,
+background = "white",   
+)
+
+global r11
+r11 = Radiobutton(
+root,
+text = OPTION3[indexes3[0]][2],
+font = ("Times",16),
+value = 2,
+variable = radiovar3,
+command = selecteddbms,
+background = "blue",
+)   
+
+global r12
+r12 = Radiobutton(
+root,
+text = OPTION3[indexes3[0]][3],
+font = ("Times",16),
+value = 3,
+variable = radiovar3,
+command = selecteddbms,
+background = "orange",
+)
+
+
+
+
+
+
+#LAYOUT FOR DS QUIZ PAGE 
+
+global lblquestion4
+lblquestion4 = Label(
+root,
+text = QUESTION4[indexes4[0]] ,
+font = ("Consolas",16),
+width = 500,
+justify = "center",
+wraplength = 400,
+background = "light green",
+)
+
+global radiovar4
+radiovar4 = IntVar()
+radiovar4.set(-1)
+
+global r13
+r13 = Radiobutton(
+root,
+text = OPTION4[indexes4[0]][0],
+font = ("Times",16),
+value = 0,
+variable = radiovar4,
+command = selectedds,
+background = "red",
+)
+
+global r14
+r14 = Radiobutton(
+root,
+text = OPTION4[indexes4[0]][1],
+font = ("Times",16),
+value = 1,
+variable = radiovar4,
+command = selectedds,
+background = "white",   
+)
+
+global r15
+r15 = Radiobutton(
+root,
+text = OPTION4[indexes4[0]][2],
+font = ("Times",16),
+value = 2,
+variable = radiovar4,
+command = selectedds,
+background = "blue",
+)   
+
+global r16
+r16 = Radiobutton(
+root,
+text = OPTION4[indexes4[0]][3],
+font = ("Times",16),
+value = 3,
+variable = radiovar4,
+command = selectedds,
+background = "orange",
+)
+
+#LAYOUT FOR SPORTS QUIZ PAGE 
+
+global lblquestion5
+lblquestion5 = Label(
+root,
+text = QUESTION5[indexes5[0]] ,
+font = ("Consolas",16),
+width = 500,
+justify = "center",
+wraplength = 400,
+background = "light green",
+)
+
+global radiovar5
+radiovar5 = IntVar()
+radiovar5.set(-1)
+
+global r17
+r17 = Radiobutton(
+root,
+text = OPTION5[indexes5[0]][0],
+font = ("Times",16),
+value = 0,
+variable = radiovar5,
+command = selectedsports,
+background = "red",
+)
+
+global r18
+r18 = Radiobutton(
+root,
+text = OPTION5[indexes5[0]][1],
+font = ("Times",16),
+value = 1,
+variable = radiovar5,
+command = selectedsports,
+background = "white",   
+)
+
+global r19
+r19 = Radiobutton(
+root,
+text = OPTION5[indexes5[0]][2],
+font = ("Times",16),
+value = 2,
+variable = radiovar5,
+command = selectedsports,
+background = "blue",
+)   
+
+global r20
+r20 = Radiobutton(
+root,
+text = OPTION5[indexes5[0]][3],
+font = ("Times",16),
+value = 3,
+variable = radiovar5,
+command = selectedsports,
+background = "orange",
+)
+
+#LAYOUT FOR ANIME QUIZ PAGE 
+
+global lblquestion6
+lblquestion6 = Label(
+root,
+text = QUESTION6[indexes6[0]] ,
+font = ("Consolas",16),
+width = 500,
+justify = "center",
+wraplength = 400,
+background = "light green",
+)
+
+global radiovar6
+radiovar6 = IntVar()
+radiovar6.set(-1)
+
+global r21
+r21 = Radiobutton(
+root,
+text = OPTION6[indexes6[0]][0],
+font = ("Times",16),
+value = 0,
+variable = radiovar6,
+command = selectedanime,
+background = "red",
+)
+
+global r22
+r22 = Radiobutton(
+root,
+text = OPTION6[indexes6[0]][1],
+font = ("Times",16),
+value = 1,
+variable = radiovar6,
+command = selectedanime,
+background = "white",   
+)
+
+global r23
+r23 = Radiobutton(
+root,
+text = OPTION6[indexes6[0]][2],
+font = ("Times",16),
+value = 2,
+variable = radiovar6,
+command = selectedanime,
+background = "blue",
+)   
+
+global r24
+r24 = Radiobutton(
+root,
+text = OPTION6[indexes6[0]][3],
+font = ("Times",16),
+value = 3,
+variable = radiovar6,
+command = selectedanime,
+background = "orange",
+)
+
+
+
+#LAYOUT FOR APPTITUDE QUIZ PAGE
+
+global lblquestion7
+lblquestion7 = Label(
+root,
+text = QUESTION7[indexes7[0]] ,
+font = ("Consolas",16),
+width = 500,
+justify = "center",
+wraplength = 400,
+background = "light green",
+)
+
+global radiovar7
+radiovar7 = IntVar()
+radiovar7.set(-1)
+
+global r25
+r25 = Radiobutton(
+root,
+text = OPTION7[indexes7[0]][0],
+font = ("Times",16),
+value = 0,
+variable = radiovar7,
+command = selectedap,
+background = "red",
+)
+
+global r26
+r26 = Radiobutton(
+root,
+text = OPTION7[indexes7[0]][1],
+font = ("Times",16),
+value = 1,
+variable = radiovar7,
+command = selectedap,
+background = "white",   
+)
+
+global r27
+r27 = Radiobutton(
+root,
+text = OPTION7[indexes7[0]][2],
+font = ("Times",16),
+value = 2,
+variable = radiovar7,
+command = selectedap,
+background = "blue",
+)   
+
+global r28
+r28 = Radiobutton(
+root,
+text = OPTION7[indexes7[0]][3],
+font = ("Times",16),
+value = 3,
+variable = radiovar7,
+command = selectedap,
+background = "orange",
+)
+
+labelscore = Label(
+root)
+
+
+    
+root.mainloop()
